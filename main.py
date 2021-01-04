@@ -5,20 +5,24 @@ from dotenv import load_dotenv
 import requests
 import json
 from discord.ext import commands
-from discord.ext.commands import Bot
 
 bot = commands.Bot(command_prefix='$')
 
-url = 'https://api.genshin.dev/characters/{}'
+char = 'https://api.genshin.dev/characters/{}'
+img = 'https://rerollcdn.com/GENSHIN/Characters/{}.png'
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 @bot.command()
 async def character(ctx, arg):
-      response = requests.get(url.format(arg)).text
+      response = requests.get(char.format(arg)).text
       data = json.loads(response)
       embeded = discord.Embed(title=data['name'],description=data['description'])
+      embeded.set_thumbnail(url=img.format(data['name'])) 
+      embeded.add_field(name="Vision", value=data['vision'], inline=True)
+      embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
+      embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
       await ctx.send(embed=embeded)
 
 
