@@ -1,11 +1,18 @@
 from flask import Flask
 from threading import Thread
+import requests
+import json
+
+
+response = requests.get('https://api.genshin.dev/characters/albedo').text
+response_info = json.loads(response)
 
 app = Flask('')
 
 @app.route('/')
 def home():
-    return "Hello. I am alive!"
+    return response_info
+    # return "Hello. I am alive!"
     # people = [{'name': 'Alice', 'birth-year': 1986},
     #       {'name': 'Bob', 'birth-year': 1985}]
     # return jsonify(people) 

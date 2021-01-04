@@ -5,10 +5,10 @@ from keep_alive import keep_alive
 from dotenv import load_dotenv
 import requests
 import json
+import urllib.request
 
-
-response = requests.get('https://api.genshin.dev/characters').text
-response_info = json.loads(response)
+response = requests.get('https://api.genshin.dev/characters/albedo').text
+data = json.loads(response)
 
 
 load_dotenv()
@@ -32,7 +32,8 @@ async def on_message(message):
         await message.channel.send('http://www.nhentai.net/g/{}'.format(code))
 
     if message.content == '$character':
-        await message.channel.send(response_info)
+        embed = discord.Embed(title=data['name'],description=data['description'])
+        await message.channel.send(embed=embed)
 
 keep_alive()
 client.run(TOKEN)
