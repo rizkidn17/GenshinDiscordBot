@@ -26,7 +26,7 @@ async def character(ctx, *, arg=None):
       for i in cl:
         response = requests.get(char.format(i)).text
         data = json.loads(response)
-        embeded.add_field(name=i.title().replace("-", " "), value="{} star | {}".format(data['rarity'],data['vision']), inline=False)
+        embeded.add_field(name=i.title().replace("-", " "), value="{} Star | {}".format(data['rarity'],data['vision']), inline=True)
       await ctx.send(embed=embeded)
 
   # elif arg == "traveler geo":
