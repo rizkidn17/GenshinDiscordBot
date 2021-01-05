@@ -5,14 +5,27 @@ from dotenv import load_dotenv
 import requests
 import json
 from discord.ext import commands
+import numpy as np
+
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='$')
 
 char = 'https://api.genshin.dev/characters/{}'
+art = 'https://api.genshin.dev/artifacts/{}'
 img = 'https://rerollcdn.com/GENSHIN/Characters/{}.png'
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+charlist = requests.get('https://api.genshin.dev/characters').text
+cl = json.loads(charlist)
+# arr = np.array(cl)
+
+# print("The Numpy Array is : ")
+# for i in arr:
+#   print(i, end = ' ')
+
+
+
 
 @bot.command()
 async def character(ctx, *, arg):
@@ -35,10 +48,10 @@ async def character(ctx, *, arg):
       embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
       embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
       await ctx.send(embed=embeded)
-      
+  elif arg is None:
+      await ctx.send(cl)
+
   elif arg != None:
-      charlist = requests.get('https://api.genshin.dev/characters').text
-      cl = json.loads(charlist)
       if arg in cl:
         response = requests.get(char.format(arg)).text
         data = json.loads(response)
@@ -51,6 +64,25 @@ async def character(ctx, *, arg):
       else:
         await ctx.send("{} not Found!".format(arg).capitalize())
 
+
+
+@bot.command()
+async def artifact(ctx, *, arg):
+    narg = arg.replace(" ", "-")
+    if narg != None:
+      artlist = requests.get('https://api.genshin.dev/artifacts').text
+      al = json.loads(artlist)
+      if narg in al:
+        response = requests.get(art.format(narg)).text
+        data = json.loads(response)
+        embeded = discord.Embed(title=data['name'])
+        # embeded.set_thumbnail(url=img.format(data['name']))
+        embeded.add_field(name="Rarity", value=data['max_rarity'], inline=True) 
+        embeded.add_field(name="2 Pieces", value=data['2-piece_bonus'], inline=False)
+        embeded.add_field(name="4 Pieces", value=data['4-piece_bonus'], inline=False)
+        await ctx.send(embed=embeded)
+      else:
+        await ctx.send("{} not Found!".format(arg).capitalize())
 
 
 @bot.command()
