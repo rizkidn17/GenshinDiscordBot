@@ -51,6 +51,11 @@ async def character(ctx, *, arg=None):
         embeded.add_field(name="Vision", value=data['vision'], inline=True)
         embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
         embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
+        for j in range(1,3):
+          embeded.add_field(name="{} : {}".format(data['skillTalents'][j]['unlock'], data['skillTalents'][j]['name']), value=data['skillTalents'][j]['description'].replace("\n\n", "\n"), inline=False)
+        for i in range(6) :
+          embeded.add_field(name=data['constellations'][i]['unlock'], value="{} \n {}".format(data['constellations'][i]['name'], data['constellations'][i]['description']), inline=True)
+
         await ctx.send(embed=embeded)
       else:
         await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
@@ -126,7 +131,8 @@ async def weapon(ctx, *, arg=None):
         embeded.add_field(name="Type", value=data['type'], inline=True)
         embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
         embeded.add_field(name="Base ATK", value=data['baseAttack'], inline=True) 
-        embeded.add_field(name="Sub Stat", value=data['subStat'], inline=False)
+        embeded.add_field(name="Sub Stat", value=data['subStat'], inline=True)
+        embeded.add_field(name="Where to Get", value=data['location'], inline=True)
         embeded.add_field(name="Passive: {}".format(data['passiveName']), value=data['passiveDesc'], inline=False)
         await ctx.send(embed=embeded)
       else:
