@@ -22,6 +22,8 @@ Character List and Details.
 ![Character&Constellation](/screenshot/CharacterDetails2.png)
 ![Weapon](/screenshot/WeaponDetails.png)
 ![Artifact](/screenshot/ArtifactDetails.png)
+<img src="/screenshot/CharacterDetails1.png" width=50% height=50%>
+<img src="/screenshot/CharacterDetails2.png" width=50% height=50%>
 
 ## Next Backlog :
 - [ ] Create Own JSON and Asset. 
