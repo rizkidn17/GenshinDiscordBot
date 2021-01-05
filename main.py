@@ -11,9 +11,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='$')
 
-char = 'https://api.genshin.dev/characters/{}'
-art = 'https://api.genshin.dev/artifacts/{}'
-wp = 'https://api.genshin.dev/weapons/{}'
+API = 'https://api.genshin.dev/{}'
+
+char = API.format("characters/{}")
+art = API.format("artifacts/{}")
+wp = API.format("weapons/{}")
 imgc = 'https://rerollcdn.com/GENSHIN/Characters/{}.png'
 imga = 'https://rerollcdn.com/GENSHIN/Gear/{}.png'
 imgw = 'https://rerollcdn.com/GENSHIN/Weapon/NEW/{}.png'
@@ -53,16 +55,41 @@ async def character(ctx, *, arg=None):
         rrt = int(data['rarity'])
         strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
         embeded.add_field(name="Rarity", value=strg, inline=True)
-        for j in range(1,3):
+        for j in range(0,3):
           embeded.add_field(name="{} : {}".format(data['skillTalents'][j]['unlock'], data['skillTalents'][j]['name']), value=data['skillTalents'][j]['description'].replace("\n\n", "\n"), inline=False)
+
+        await ctx.send(embed=embeded)
+      else:
+        await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
+
+@bot.command()
+async def cons(ctx, *, arg=None):
+  if arg == None:
+      await ctx.send("Type the Character!".format(arg).title())
+
+  elif arg != None:
+      arg = arg.replace(" ", "-").lower()
+      if arg in cl:
+        response = requests.get(char.format(arg)).text
+        data = json.loads(response)
+        embeded = discord.Embed(title=data['name'.replace("-", "")],description=data['description'])
+        if arg == "traveler-geo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png')
+        elif arg == "traveler-anemo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
+        else:
+          embeded.set_thumbnail(url=imgc.format(data['name'])) 
+        embeded.add_field(name="Vision", value=data['vision'], inline=True)
+        embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
+        rrt = int(data['rarity'])
+        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
+        embeded.add_field(name="Rarity", value=strg, inline=True)
         for i in range(6) :
           embeded.add_field(name=data['constellations'][i]['unlock'], value="{} \n {}".format(data['constellations'][i]['name'], data['constellations'][i]['description']), inline=True)
 
         await ctx.send(embed=embeded)
       else:
         await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
-
-
 
 @bot.command()
 async def artifact(ctx, *, arg=None): 
