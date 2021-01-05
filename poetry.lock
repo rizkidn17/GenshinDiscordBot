@@ -123,6 +123,14 @@ version = "7.0"
 
 [[package]]
 category = "main"
+description = "The simple way to deal with environment constants."
+name = "constants"
+optional = false
+python-versions = "*"
+version = "0.6.0"
+
+[[package]]
+category = "main"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 name = "cryptography"
 optional = false
@@ -443,6 +451,22 @@ version = "1.11.0"
 
 [[package]]
 category = "main"
+description = "A light weight Python library for the Spotify Web API"
+name = "spotipy"
+optional = false
+python-versions = "*"
+version = "2.16.1"
+
+[package.dependencies]
+requests = ">=2.20.0"
+six = ">=1.10.0"
+
+[package.extras]
+doc = ["Sphinx (>=1.5.2)"]
+test = ["mock (2.0.0)"]
+
+[[package]]
+category = "main"
 description = "Pretty-print tabular data"
 name = "tabulate"
 optional = false
@@ -523,7 +547,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "64a41660861e1c833f54784047baa68b03931092c754c45447c9a53b82d9ff4d"
+content-hash = "15940187deb673be93f3a66f46db2445f00a126db7e9b473dbdfe6b2dbbb674d"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -614,6 +638,9 @@ chardet = [
 click = [
     {file = "Click-7.0-py2.py3-none-any.whl", hash = "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13"},
     {file = "Click-7.0.tar.gz", hash = "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"},
+]
+constants = [
+    {file = "constants-0.6.0.tar.gz", hash = "sha256:0b65d6927b66bfbefdfbca9ef4d66645d266e7ae148ff91659b76f4c7f9bf9b1"},
 ]
 cryptography = [
     {file = "cryptography-3.3.1-cp27-cp27m-macosx_10_10_x86_64.whl", hash = "sha256:c366df0401d1ec4e548bebe8f91d55ebcc0ec3137900d214dd7aac8427ef3030"},
@@ -815,6 +842,11 @@ requests-toolbelt = [
 six = [
     {file = "six-1.11.0-py2.py3-none-any.whl", hash = "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"},
     {file = "six-1.11.0.tar.gz", hash = "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9"},
+]
+spotipy = [
+    {file = "spotipy-2.16.1-py2-none-any.whl", hash = "sha256:2670ad5715d5bd53a353708eea0ab2aa154232e2fe25d826dc39da5b910f0e17"},
+    {file = "spotipy-2.16.1-py3-none-any.whl", hash = "sha256:9d4f0c5857a2c9bb72b39d66e38182ccaf62bcf18a5a16b4f2be8e802eca2f2c"},
+    {file = "spotipy-2.16.1.tar.gz", hash = "sha256:4564a6b05959deb82acc96a3fe6883db1ad9f8c73b7ff3b9f1f44db43feba0b8"},
 ]
 tabulate = [
     {file = "tabulate-0.8.6.tar.gz", hash = "sha256:5470cc6687a091c7042cee89b2946d9235fe9f6d49c193a4ae2ac7bf386737c8"},
