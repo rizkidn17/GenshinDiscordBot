@@ -17,6 +17,8 @@ img = 'https://rerollcdn.com/GENSHIN/Characters/{}.png'
 
 charlist = requests.get('https://api.genshin.dev/characters').text
 cl = json.loads(charlist)
+artlist = requests.get('https://api.genshin.dev/artifacts').text
+al = json.loads(artlist)
 
 
 @bot.command()
@@ -71,22 +73,33 @@ async def character(ctx, *, arg=None):
 
 
 @bot.command()
-async def artifact(ctx, *, arg):
-    narg = arg.replace(" ", "-")
-    if narg != None:
+async def artifact(ctx):
+    
+    # if arg == None:
+      embeded = discord.Embed(title="Artifact List")
       artlist = requests.get('https://api.genshin.dev/artifacts').text
       al = json.loads(artlist)
-      if narg in al:
-        response = requests.get(art.format(narg)).text
+      for i in al:
+        response = requests.get(art.format(i)).text
         data = json.loads(response)
-        embeded = discord.Embed(title=data['name'])
-        # embeded.set_thumbnail(url=img.format(data['name']))
-        embeded.add_field(name="Rarity", value=data['max_rarity'], inline=True) 
-        embeded.add_field(name="2 Pieces", value=data['2-piece_bonus'], inline=False)
-        embeded.add_field(name="4 Pieces", value=data['4-piece_bonus'], inline=False)
-        await ctx.send(embed=embeded)
-      else:
-        await ctx.send("{} not Found!".format(arg).capitalize())
+        embeded.add_field(name=i.title().replace("-", " "), value="2P: {}\n4P: {}".format(data['2-piece_bonus'], data['4-piece_bonus']), inline=True)
+      await ctx.send(embed=embeded)
+
+    # elif arg != None:
+    #   arg = arg.replace(" ", "-")
+    #   artlist = requests.get('https://api.genshin.dev/artifacts').text
+    #   al = json.loads(artlist)
+    #   if arg in al:
+    #     response = requests.get(art.format(arg)).text
+    #     data = json.loads(response)
+    #     embeded = discord.Embed(title=data['name'])
+    #     # embeded.set_thumbnail(url=img.format(data['name']))
+    #     embeded.add_field(name="Rarity", value=data['max_rarity'], inline=True) 
+    #     embeded.add_field(name="2 Pieces", value=data['2-piece_bonus'], inline=False)
+    #     embeded.add_field(name="4 Pieces", value=data['4-piece_bonus'], inline=False)
+    #     await ctx.send(embed=embeded)
+    #   else:
+    #     await ctx.send("{} not Found!".format(arg).capitalize())
 
 
 @bot.command()
