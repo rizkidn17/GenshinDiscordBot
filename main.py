@@ -36,28 +36,8 @@ async def character(ctx, *, arg=None):
         embeded.add_field(name=i.title().replace("-", " "), value="{} Star | {}".format(data['rarity'],data['vision']), inline=True)
       await ctx.send(embed=embeded)
 
-  # elif arg == "traveler geo":
-  #     response = requests.get(char.format("traveler-geo")).text
-  #     data = json.loads(response)
-  #     embeded = discord.Embed(title=data['name'],description=data['description'])
-  #     embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png') 
-  #     embeded.add_field(name="Vision", value=data['vision'], nline=True)
-  #     embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-  #     embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
-  #     await ctx.send(embed=embeded)
-    
-  # elif arg == "traveler anemo":
-  #     response = requests.get(char.format("traveler-anemo")).text
-  #     data = json.loads(response)
-  #     embeded = discord.Embed(title=data['name'],description=data['description'])
-  #     embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
-  #     embeded.add_field(name="Vision", value=data['vision'], inline=True)
-  #     embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-  #     embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
-  #     await ctx.send(embed=embeded)
-
   elif arg != None:
-      arg = arg.replace(" ", "-")
+      arg = arg.replace(" ", "-").lower()
       if arg in cl:
         response = requests.get(char.format(arg)).text
         data = json.loads(response)
@@ -88,7 +68,8 @@ async def artifact(ctx, *, arg=None):
       embeded = discord.Embed(title="Artifact List", description=listToString(al).title().replace("-", " "))
       await ctx.send(embed=embeded)
 
-      
+     ## # Use this if you wanted to show List and Showing some info
+     ## # Not recommended because load to many data
       # embeded = discord.Embed(title="Artifact List")
       # artlist = requests.get('https://api.genshin.dev/artifacts').text
       # al = json.loads(artlist)
@@ -99,7 +80,7 @@ async def artifact(ctx, *, arg=None):
       # await ctx.send(embed=embeded)
 
     elif arg != None:
-      arg = arg.replace(" ", "-")
+      arg = arg.replace(" ", "-").lower()
       artlist = requests.get('https://api.genshin.dev/artifacts').text
       al = json.loads(artlist)
       if arg in al:
@@ -124,6 +105,8 @@ async def weapon(ctx, *, arg=None):
       wl = json.loads(wplist)  
       embeded = discord.Embed(title="Weapon List", description=listToString(wl).title().replace("-", " "))
       await ctx.send(embed=embeded)
+
+      ## # Same as artifact, but Weapons hold to many data, so it only shown a part of it
       # for i in wl:
       #   response = requests.get(wp.format(i)).text
       #   data = json.loads(response)
@@ -131,11 +114,14 @@ async def weapon(ctx, *, arg=None):
       # await ctx.send(embed=embeded)
 
     elif arg != None:
-      arg = arg.replace(" ", "-")
+      arg = arg.replace(" ", "-").lower()
+      wplist = requests.get('https://api.genshin.dev/weapons').text
+      wl = json.loads(wplist)  
       if arg in wl:
         response = requests.get(wp.format(arg)).text
         data = json.loads(response)
         embeded = discord.Embed(title=data['name'])
+        print(data['name'])
         embeded.set_thumbnail(url=imgw.format(data['name'].replace(" ", "_")))
         embeded.add_field(name="Type", value=data['type'], inline=True)
         embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
@@ -152,29 +138,17 @@ async def about(ctx):
     embeded.set_footer(text='Disclaimer: This bot only for personal use and not related with Official Genshin Impact and Mihoyo')
     await ctx.send(embed=embeded)
 
+@bot.command()
+async def backlog(ctx):
+    embeded = discord.Embed(title='Backlog',description="Planned to create 24/7 Radio of Genshin Impact Soundtrack")
+    embeded.set_footer(text='Disclaimer: This bot only for personal use and not related with Official Genshin Impact and Mihoyo')
+    await ctx.send(embed=embeded)
 
-@bot.event #print that the bot is ready to make sure that it actually logged on
+
+@bot.event 
 async def on_ready():
     print('Logged in as:')
     print(bot.user.name)
-
-# @client.event
-# async def on_ready():
-#     print(f'{client.user} has connected to Discord!')
-
-# @client.event
-# async def on_message(message):
-#     if message.author == client.user:
-#         return
-
-    # if message.content == '$test':
-    #     await message.channel.send('Bot is Active!')
-
-    # if message.content == '$character':
-    #     response = requests.get(url.format('albedo')).text
-    #     data = json.loads(response)
-    #     embed = discord.Embed(title=data['name'],description=data['description'])
-    #     await message.channel.send(embed=embed)
 
 keep_alive()
 bot.run(TOKEN)

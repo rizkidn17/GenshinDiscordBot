@@ -1,0 +1,20 @@
+Hello there...
+
+This is just a playground for me to applied my Python and API Skill as well as create a bot for Discord.
+
+Big Thanks to :
+https://github.com/genshindev/api
+https://api.genshin.dev/
+for providing a great API about Genshin Impact!
+
+Feature :
+Weapon List and Details
+Artifact List and Details
+Character List and Details
+
+Next Backlog :
+Genshin Impact Radio
+
+Bot Link :
+https://discord.com/api/oauth2/authorize?client_id=792761834301947904&permissions=0&scope=bot
+
