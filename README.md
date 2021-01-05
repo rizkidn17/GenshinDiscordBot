@@ -3,11 +3,10 @@ Hello there...
 This is just a playground for me to applied my Python and API Skill as well as create a bot for Discord.
 
 Big Thanks to :
-https://github.com/genshindev/api
-https://api.genshin.dev/
+[Genshin.Dev](https://api.genshin.dev/)
 for providing a great API about Genshin Impact!
 
-https://repl.it/
+[Repl.it](https://repl.it/)
 for providing a great workplaces!
 
 Feature :
