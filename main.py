@@ -30,7 +30,7 @@ wl = json.loads(wplist)
 
 @bot.command()
 async def character(ctx, arg=None, arg2=None):
- if arg2 == None:  
+#  if arg2 == None:  
   if arg == None:
       embeded = discord.Embed(title="Character List")
       for i in cl:
@@ -64,38 +64,7 @@ async def character(ctx, arg=None, arg2=None):
         await ctx.send(embed=embeded)
       else:
         await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
- elif arg2 == 'cons':
-  if arg == None:
-      await ctx.send("Type the Character!".format(arg).title())
-
-  elif arg != None:
-      arg = arg.replace(" ", "-").lower()
-      if arg in cl:
-        response = requests.get(char.format(arg)).text
-        data = json.loads(response)
-        embeded = discord.Embed(title=data['name'.replace("-", "")],description=data['description'])
-        if arg == "traveler-geo":
-          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png')
-        elif arg == "traveler-anemo":
-          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
-        else:
-          embeded.set_thumbnail(url=imgc.format(data['name'])) 
-        embeded.add_field(name="Vision", value=data['vision'], inline=True)
-        embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-        rrt = int(data['rarity'])
-        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
-        embeded.add_field(name="Rarity", value=strg, inline=True)
-        for i in range(6) :
-          embeded.add_field(name=data['constellations'][i]['unlock'], value="{} \n {}".format(data['constellations'][i]['name'], data['constellations'][i]['description']), inline=True)
-
-        await ctx.send(embed=embeded)
-      else:
-        await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
- else:
-   await ctx.send("$character : Show All Character\n$character <name> : Show Character Details&Talent\n$character <name> cons : Show Character Details&Constellation ")
-
-# @bot.command()
-# async def cons(ctx, *, arg=None):
+#  elif arg2 == 'cons':
 #   if arg == None:
 #       await ctx.send("Type the Character!".format(arg).title())
 
@@ -122,6 +91,37 @@ async def character(ctx, arg=None, arg2=None):
 #         await ctx.send(embed=embeded)
 #       else:
 #         await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
+#  else:
+#    await ctx.send("$character : Show All Character\n$character <name> : Show Character Details&Talent\n$character <name> cons : Show Character Details&Constellation ")
+
+@bot.command()
+async def cons(ctx, *, arg=None):
+  if arg == None:
+      await ctx.send("Type the Character!".format(arg).title())
+
+  elif arg != None:
+      arg = arg.replace(" ", "-").lower()
+      if arg in cl:
+        response = requests.get(char.format(arg)).text
+        data = json.loads(response)
+        embeded = discord.Embed(title=data['name'.replace("-", "")],description=data['description'])
+        if arg == "traveler-geo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png')
+        elif arg == "traveler-anemo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
+        else:
+          embeded.set_thumbnail(url=imgc.format(data['name'])) 
+        embeded.add_field(name="Vision", value=data['vision'], inline=True)
+        embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
+        rrt = int(data['rarity'])
+        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
+        embeded.add_field(name="Rarity", value=strg, inline=True)
+        for i in range(6) :
+          embeded.add_field(name=data['constellations'][i]['unlock'], value="{} \n {}".format(data['constellations'][i]['name'], data['constellations'][i]['description']), inline=True)
+
+        await ctx.send(embed=embeded)
+      else:
+        await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
 
 @bot.command()
 async def artifact(ctx, *, arg=None): 
