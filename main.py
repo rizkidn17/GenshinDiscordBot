@@ -50,7 +50,9 @@ async def character(ctx, *, arg=None):
           embeded.set_thumbnail(url=imgc.format(data['name'])) 
         embeded.add_field(name="Vision", value=data['vision'], inline=True)
         embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-        embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
+        rrt = int(data['rarity'])
+        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
+        embeded.add_field(name="Rarity", value=strg, inline=True)
         for j in range(1,3):
           embeded.add_field(name="{} : {}".format(data['skillTalents'][j]['unlock'], data['skillTalents'][j]['name']), value=data['skillTalents'][j]['description'].replace("\n\n", "\n"), inline=False)
         for i in range(6) :
@@ -93,7 +95,9 @@ async def artifact(ctx, *, arg=None):
         data = json.loads(response)
         embeded = discord.Embed(title=data['name'])
         embeded.set_thumbnail(url=imga.format(data['name'].lower().replace(" ", "_")))
-        embeded.add_field(name="Rarity", value=data['max_rarity'], inline=True) 
+        rrt = int(data['max_rarity'])
+        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
+        embeded.add_field(name="Max Rarity", value=strg, inline=True) 
         embeded.add_field(name="2 Pieces", value=data['2-piece_bonus'], inline=False)
         embeded.add_field(name="4 Pieces", value=data['4-piece_bonus'], inline=False)
         await ctx.send(embed=embeded)
@@ -129,8 +133,10 @@ async def weapon(ctx, *, arg=None):
         print(data['name'])
         embeded.set_thumbnail(url=imgw.format(data['name'].replace(" ", "_")))
         embeded.add_field(name="Type", value=data['type'], inline=True)
-        embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
         embeded.add_field(name="Base ATK", value=data['baseAttack'], inline=True) 
+        rrt = int(data['rarity'])
+        strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
+        embeded.add_field(name="Rarity", value=strg, inline=True)
         embeded.add_field(name="Sub Stat", value=data['subStat'], inline=True)
         embeded.add_field(name="Where to Get", value=data['location'], inline=True)
         embeded.add_field(name="Passive: {}".format(data['passiveName']), value=data['passiveDesc'], inline=False)
@@ -140,7 +146,7 @@ async def weapon(ctx, *, arg=None):
 
 @bot.command()
 async def about(ctx):
-    embeded = discord.Embed(title='GI Bot',description="Currently we only provide Character's Brief Details. Feel free to support us with idea in [Github](https://github.com/rizkidn17/GenshinDiscordBot)\n [Website](https://genshinimpactbot.rizkidn.repl.co/)")
+    embeded = discord.Embed(title='GI Bot',description="Currently we only provide Character's Brief Details. Feel free to support us with idea in [Github](https://github.com/rizkidn17/GenshinDiscordBot) or [Website](https://genshinimpactbot.rizkidn.repl.co/)")
     embeded.set_footer(text='Disclaimer: This bot only for personal use and not related with Official Genshin Impact and Mihoyo')
     await ctx.send(embed=embeded)
 
