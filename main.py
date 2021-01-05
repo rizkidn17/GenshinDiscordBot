@@ -57,6 +57,8 @@ async def character(ctx, *, arg=None):
         embeded.add_field(name="Rarity", value=strg, inline=True)
         for j in range(0,3):
           embeded.add_field(name="{} : {}".format(data['skillTalents'][j]['unlock'], data['skillTalents'][j]['name']), value=data['skillTalents'][j]['description'].replace("\n\n", "\n"), inline=False)
+        for m in range(0,3):
+          embeded.add_field(name="{} \n({})".format(data['passiveTalents'][m]['name'], data['passiveTalents'][m]['unlock']), value=data['passiveTalents'][m]['description'].replace("\n\n", "\n"), inline=True)
 
         await ctx.send(embed=embeded)
       else:
