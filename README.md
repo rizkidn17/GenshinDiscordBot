@@ -15,11 +15,14 @@ Artifact List and Details
 Character List and Details
 
 Next Backlog :
+Create Own JSON and Asset
 Genshin Impact Radio
 
-Website (temp)
+Website :
 [Website](https://rizkidn17.github.io/GenshinDiscordBot/)
 
 Bot Link :
 [Invite Me!](https://discord.com/api/oauth2/authorize?client_id=792761834301947904&permissions=0&scope=bot)
+
+$help to list all available commands!
 
