@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 import requests
 import json
 from discord.ext import commands
-import numpy as np
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -18,45 +17,48 @@ img = 'https://rerollcdn.com/GENSHIN/Characters/{}.png'
 
 charlist = requests.get('https://api.genshin.dev/characters').text
 cl = json.loads(charlist)
-# arr = np.array(cl)
-
-# print("The Numpy Array is : ")
-# for i in arr:
-#   print(i, end = ' ')
-
-
 
 
 @bot.command()
-async def character(ctx, *, arg):
-  if arg == "traveler geo":
-      response = requests.get(char.format("traveler-geo")).text
-      data = json.loads(response)
-      embeded = discord.Embed(title=data['name'],description=data['description'])
-      embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png') 
-      embeded.add_field(name="Vision", value=data['vision'], inline=True)
-      embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-      embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
+async def character(ctx, *, arg=None):
+  if arg == None:
+      embeded = discord.Embed(title="Character List")
+      for i in cl:
+        embeded.add_field(name=i.title().replace(" ", "-"), value='\u200b', inline=False)
       await ctx.send(embed=embeded)
+
+  # elif arg == "traveler geo":
+  #     response = requests.get(char.format("traveler-geo")).text
+  #     data = json.loads(response)
+  #     embeded = discord.Embed(title=data['name'],description=data['description'])
+  #     embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png') 
+  #     embeded.add_field(name="Vision", value=data['vision'], inline=True)
+  #     embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
+  #     embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
+  #     await ctx.send(embed=embeded)
     
-  elif arg == "traveler anemo":
-      response = requests.get(char.format("traveler-anemo")).text
-      data = json.loads(response)
-      embeded = discord.Embed(title=data['name'],description=data['description'])
-      embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
-      embeded.add_field(name="Vision", value=data['vision'], inline=True)
-      embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
-      embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
-      await ctx.send(embed=embeded)
-  elif arg is None:
-      await ctx.send(cl)
+  # elif arg == "traveler anemo":
+  #     response = requests.get(char.format("traveler-anemo")).text
+  #     data = json.loads(response)
+  #     embeded = discord.Embed(title=data['name'],description=data['description'])
+  #     embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
+  #     embeded.add_field(name="Vision", value=data['vision'], inline=True)
+  #     embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
+  #     embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
+  #     await ctx.send(embed=embeded)
 
   elif arg != None:
+      arg = arg.replace(" ", "-")
       if arg in cl:
         response = requests.get(char.format(arg)).text
         data = json.loads(response)
-        embeded = discord.Embed(title=data['name'],description=data['description'])
-        embeded.set_thumbnail(url=img.format(data['name'])) 
+        embeded = discord.Embed(title=data['name'.replace("-", "")],description=data['description'])
+        if arg == "traveler-geo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Geo).png')
+        elif arg == "traveler-anemo":
+          embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
+        else:
+          embeded.set_thumbnail(url=img.format(data['name'])) 
         embeded.add_field(name="Vision", value=data['vision'], inline=True)
         embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
         embeded.add_field(name="Rarity", value=data['rarity'], inline=True)
