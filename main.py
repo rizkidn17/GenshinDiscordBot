@@ -24,7 +24,9 @@ async def character(ctx, *, arg=None):
   if arg == None:
       embeded = discord.Embed(title="Character List")
       for i in cl:
-        embeded.add_field(name=i.title().replace(" ", "-"), value='\u200b', inline=False)
+        response = requests.get(char.format(i)).text
+        data = json.loads(response)
+        embeded.add_field(name=i.title().replace("-", " "), value="{} star | {}".format(data['rarity'],data['vision']), inline=False)
       await ctx.send(embed=embeded)
 
   # elif arg == "traveler geo":
