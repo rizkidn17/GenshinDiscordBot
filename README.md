@@ -3,11 +3,10 @@ Hello there...
 This is just a playground for me to applied my Python and API Skill as well as create a bot for Discord.
 
 Big Thanks to :
-https://github.com/genshindev/api
-https://api.genshin.dev/
+[Genshin.Dev](https://api.genshin.dev/)
 for providing a great API about Genshin Impact!
 
-https://repl.it/
+[Repl.it](https://repl.it/)
 for providing a great workplaces!
 
 Feature :
@@ -19,8 +18,8 @@ Next Backlog :
 Genshin Impact Radio
 
 Website (temp)
-https://genshinimpactbot.rizkidn.repl.co/
+[Website](https://genshinimpactbot.rizkidn.repl.co/)
 
 Bot Link :
-https://discord.com/api/oauth2/authorize?client_id=792761834301947904&permissions=0&scope=bot
+[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=792761834301947904&permissions=0&scope=bot)
 
