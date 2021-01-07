@@ -20,8 +20,8 @@ Character List and Details.
 ## Screenshot :
 <img src="/screenshot/CharacterDetails1.png" width=50% height=50%>
 <img src="/screenshot/CharacterDetails2.png" width=50% height=50%>
-![Character&Talents](/screenshot/CharacterDetails1.png)
-![Character&Constellation](/screenshot/CharacterDetails2.png)
+<img src="/screenshot/WeaponDetails.png">
+<img src="/screenshot/ArtifactDetails2.png">
 
 ## Next Backlog :
 - [ ] Create Own JSON and Asset. 
