@@ -95,10 +95,9 @@ async def character(ctx, *, arg=None):
 #    await ctx.send("$character : Show All Character\n$character <name> : Show Character Details&Talent\n$character <name> cons : Show Character Details&Constellation ")
 
 @bot.command()
-async def talent(ctx, arg=None, arg2=None):
- if arg2 != None:  
+async def talent(ctx, *, arg=None):
   if arg == None:
-      await ctx.send("Type $talent name skillnumber".format(arg).capitalize().replace("-", " "))
+      await ctx.send("Type $talent CharacterName".format(arg).title().replace("-", " "))
 
   elif arg != None:
       arg = arg.replace(" ", "-").lower()
@@ -117,10 +116,12 @@ async def talent(ctx, arg=None, arg2=None):
         rrt = int(data['rarity'])
         strg = "".join([" :star: ".format(x, x*2) for x in range(rrt)])
         embeded.add_field(name="Rarity", value=strg, inline=True)
-        for j in range(0,3):
-          embeded.add_field(name="{} : {}".format(data['skillTalents'][j]['unlock'], data['skillTalents'][j]['name']), value=data['skillTalents'][j]['description'].replace("\n\n", "\n"), inline=False)
-        for m in range(0,3):
-          embeded.add_field(name="Passive Skill: {} \n({})".format(data['passiveTalents'][m]['name'], data['passiveTalents'][m]['unlock']), value=data['passiveTalents'][m]['description'].replace("\n\n", "\n"), inline=True)
+        for skillTalents in data['skillTalents']:
+          embeded.add_field(name="{} : {}".format(skillTalents['unlock'], skillTalents['name']), value=skillTalents['description'].replace("\n\n", "\n"), inline=False)
+          for upgrades in skillTalents['upgrades']:
+            embeded.add_field(name="{}".format(upgrades['name']), value=upgrades['value'], inline=True)
+        # for passiveTalents in data['passiveTalents']:
+        #   embeded.add_field(name="Passive Skill: {} \n({})".format(passiveTalents['name'], passiveTalents['unlock']), value=passiveTalents['description'].replace("\n\n", "\n"), inline=True)
 
         await ctx.send(embed=embeded)
       else:
