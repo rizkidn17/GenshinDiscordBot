@@ -21,7 +21,7 @@ Character List and Details.
 <img src="/screenshot/CharacterDetails1.png" width=50% height=50%>
 <img src="/screenshot/CharacterDetails2.png" width=50% height=50%>
 <img src="/screenshot/WeaponDetails.png">
-<img src="/screenshot/ArtifactDetails2.png">
+<img src="/screenshot/ArtifactDetails.png">
 
 ## Next Backlog :
 - [ ] Create Own JSON and Asset. 
