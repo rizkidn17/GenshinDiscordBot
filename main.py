@@ -50,7 +50,7 @@ async def character(ctx, *, arg=None):
         elif arg == "traveler-anemo":
           embeded.set_thumbnail(url='https://rerollcdn.com/GENSHIN/Characters/Traveler%20(Anemo).png') 
         else:
-          embeded.set_thumbnail(url=imgc.format(data['name']))
+          embeded.set_thumbnail(url=imgc.format(data['name'].replace(" ", "%20")))
         embeded.add_field(name="Vision", value=data['vision'], inline=True)
         embeded.add_field(name="Weapon", value=data['weapon'], inline=True)
         rrt = int(data['rarity'])
@@ -60,7 +60,6 @@ async def character(ctx, *, arg=None):
           embeded.add_field(name="{} : {}".format(skillTalents['unlock'], skillTalents['name']), value=skillTalents['description'].replace("\n\n", "\n"), inline=False)
         for passiveTalents in data['passiveTalents']:
           embeded.add_field(name="Passive Skill: {} \n({})".format(passiveTalents['name'], passiveTalents['unlock']), value=passiveTalents['description'].replace("\n\n", "\n"), inline=True)
-
         await ctx.send(embed=embeded)
       else:
         await ctx.send("{} not Found!".format(arg).title().replace("-", " "))
